@@ -6,75 +6,104 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="Tip Calc" />
-  <meta name="theme-color" content="#059669" />
+  <meta name="theme-color" content="#2b1e3e" />
   <title>Tip Calculator</title>
-  <!-- Home-screen icon (emoji drawn to an SVG so there are no external files) -->
-  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='40' fill='%23059669'/%3E%3Ctext x='90' y='125' font-size='100' text-anchor='middle'%3E%F0%9F%92%B5%3C/text%3E%3C/svg%3E" />
+  <!-- Home-screen icon: cosmic purple tile with a money emoji -->
+  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='40' fill='%232b1e3e'/%3E%3Ctext x='90' y='125' font-size='100' text-anchor='middle'%3E%F0%9F%92%B5%3C/text%3E%3C/svg%3E" />
   <style>
+    :root {
+      --deep: #2b1e3e;      /* rich dark base */
+      --cosmic: #4a4e8f;    /* mystical mid-tone */
+      --lavender: #a490c2;  /* soft accent */
+      --silver: #e6e6fa;    /* light text */
+    }
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
     html, body { margin: 0; padding: 0; }
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background: #f1f5f9;
+      font-family: "FreeSans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: radial-gradient(1200px 600px at 50% -10%, #3a2b52 0%, #201631 55%, #150e21 100%);
       min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: flex-start;
       padding: 16px;
+      color: var(--silver);
     }
     .card {
       width: 100%;
       max-width: 440px;
-      background: #fff;
-      border-radius: 20px;
-      box-shadow: 0 20px 40px rgba(0,0,0,.12);
+      background: linear-gradient(180deg, rgba(43,30,62,.96), rgba(30,21,45,.96));
+      border: 1px solid rgba(164,144,194,.25);
+      border-radius: 22px;
+      box-shadow: 0 24px 60px rgba(10,6,20,.6), 0 0 0 1px rgba(164,144,194,.06);
       overflow: hidden;
     }
-    .header { background: #059669; padding: 20px 24px; }
-    .header h1 { color: #fff; font-size: 22px; margin: 0; }
-    .header p { color: #d1fae5; font-size: 13px; margin: 4px 0 0; }
+    .header {
+      background: linear-gradient(135deg, var(--cosmic), #6a5aa0);
+      padding: 22px 24px;
+      position: relative;
+    }
+    .header::after {
+      content: ""; position: absolute; inset: 0;
+      background: radial-gradient(300px 120px at 85% -30%, rgba(230,230,250,.28), transparent 70%);
+      pointer-events: none;
+    }
+    .header h1 { color: #fff; font-size: 23px; margin: 0; letter-spacing: .3px; font-weight: 800; }
+    .header p { color: #d9d4f2; font-size: 13px; margin: 5px 0 0; }
     .body { padding: 22px 24px; }
     .field { margin-bottom: 18px; }
-    label.lbl { display: block; font-size: 14px; font-weight: 600; color: #334155; margin-bottom: 6px; }
+    label.lbl { display: block; font-size: 13px; font-weight: 600; color: var(--lavender); margin-bottom: 7px; letter-spacing: .3px; text-transform: uppercase; }
     .inwrap { position: relative; }
     input[type=number] {
-      width: 100%; padding: 11px 12px; font-size: 17px;
-      border: 1px solid #cbd5e1; border-radius: 10px; outline: none;
+      width: 100%; padding: 12px 12px; font-size: 17px;
+      background: rgba(20,14,32,.7);
+      border: 1px solid rgba(164,144,194,.3); border-radius: 12px; outline: none;
+      color: var(--silver);
     }
-    input[type=number]:focus { border-color: #059669; box-shadow: 0 0 0 3px rgba(5,150,105,.15); }
+    input[type=number]::placeholder { color: #8479a0; }
+    input[type=number]:focus { border-color: var(--lavender); box-shadow: 0 0 0 3px rgba(164,144,194,.25); }
     .prefix { padding-left: 26px !important; }
     .suffix { padding-right: 30px !important; }
-    .sym { position: absolute; top: 50%; transform: translateY(-50%); color: #94a3b8; }
+    .sym { position: absolute; top: 50%; transform: translateY(-50%); color: var(--lavender); }
     .sym.l { left: 12px; } .sym.r { right: 12px; }
     .grid { display: grid; gap: 8px; }
     .g4 { grid-template-columns: repeat(4, 1fr); }
     .g3 { grid-template-columns: repeat(3, 1fr); }
     .chip {
-      padding: 10px 0; border-radius: 10px; font-size: 14px; font-weight: 600;
-      border: 1px solid #cbd5e1; background: #fff; color: #334155; cursor: pointer;
+      padding: 11px 0; border-radius: 11px; font-size: 14px; font-weight: 700;
+      border: 1px solid rgba(164,144,194,.3); background: rgba(20,14,32,.5); color: var(--silver); cursor: pointer;
+      transition: all .15s ease;
     }
     .chip.sm { font-size: 12px; }
-    .chip.active { background: #059669; color: #fff; border-color: #059669; }
-    .checkrow { display: flex; align-items: center; gap: 8px; margin-top: 10px; font-size: 14px; color: #475569; }
-    .checkrow input { width: 18px; height: 18px; accent-color: #059669; }
+    .chip:hover { border-color: var(--lavender); }
+    .chip.active {
+      background: linear-gradient(135deg, var(--cosmic), #7a68b4);
+      color: #fff; border-color: transparent;
+      box-shadow: 0 4px 14px rgba(74,78,143,.5);
+    }
+    .checkrow { display: flex; align-items: center; gap: 8px; margin-top: 10px; font-size: 14px; color: #c9c1e0; }
+    .checkrow input { width: 18px; height: 18px; accent-color: var(--lavender); }
     .stepper { display: flex; align-items: center; gap: 12px; }
     .step {
-      width: 44px; height: 44px; border-radius: 10px; border: none;
-      background: #e2e8f0; color: #334155; font-size: 22px; font-weight: 700; cursor: pointer;
+      width: 46px; height: 46px; border-radius: 12px; border: 1px solid rgba(164,144,194,.3);
+      background: rgba(20,14,32,.6); color: var(--silver); font-size: 22px; font-weight: 700; cursor: pointer;
     }
-    .count { flex: 1; text-align: center; font-size: 17px; font-weight: 600; color: #1e293b; }
-    .results { background: #f8fafc; border-radius: 14px; padding: 16px; margin-top: 4px; }
-    .row { display: flex; justify-content: space-between; align-items: center; padding: 3px 0; }
-    .row .k { color: #64748b; font-size: 14px; } .row .v { color: #334155; font-size: 14px; font-weight: 500; }
-    .row.total .k { color: #1e293b; font-size: 16px; font-weight: 600; }
-    .row.total .v { color: #0f172a; font-size: 18px; font-weight: 700; }
-    .divider { height: 1px; background: #e2e8f0; margin: 8px 0; }
+    .step:hover { border-color: var(--lavender); }
+    .count { flex: 1; text-align: center; font-size: 17px; font-weight: 600; color: var(--silver); }
+    .results { background: rgba(20,14,32,.55); border: 1px solid rgba(164,144,194,.18); border-radius: 16px; padding: 16px; margin-top: 4px; }
+    .row { display: flex; justify-content: space-between; align-items: center; padding: 4px 0; }
+    .row .k { color: #b3a9cf; font-size: 14px; } .row .v { color: var(--silver); font-size: 14px; font-weight: 500; }
+    .row.total .k { color: #fff; font-size: 16px; font-weight: 700; }
+    .row.total .v { color: #fff; font-size: 19px; font-weight: 800; }
+    .divider { height: 1px; background: rgba(164,144,194,.25); margin: 9px 0; }
     .perperson {
-      margin-top: 12px; background: #059669; border-radius: 10px;
-      padding: 12px 16px; display: flex; justify-content: space-between; align-items: center;
+      margin-top: 12px; border-radius: 12px;
+      background: linear-gradient(135deg, var(--cosmic), #7a68b4);
+      box-shadow: 0 6px 18px rgba(74,78,143,.45);
+      padding: 13px 16px; display: flex; justify-content: space-between; align-items: center;
     }
-    .perperson .k { color: #d1fae5; font-size: 14px; }
-    .perperson .v { color: #fff; font-size: 26px; font-weight: 700; }
+    .perperson .k { color: #e3def5; font-size: 14px; }
+    .perperson .v { color: #fff; font-size: 26px; font-weight: 800; }
   </style>
 </head>
 <body>
@@ -141,7 +170,6 @@
     const TIP_PRESETS = [15, 18, 20, 25];
     const state = { bill: "", tax: "", tipPct: 20, customTip: "", postTax: false, people: 1, rounding: "none" };
 
-    // Build tip preset chips
     const tipChips = document.getElementById("tipChips");
     TIP_PRESETS.forEach(p => {
       const b = document.createElement("button");
@@ -150,7 +178,6 @@
       tipChips.appendChild(b);
     });
 
-    // Build rounding chips
     const roundOpts = [ ["none","None"], ["total","Up: total"], ["person","Up: person"] ];
     const roundChips = document.getElementById("roundChips");
     roundOpts.forEach(([id,label]) => {
@@ -182,7 +209,6 @@
       if (state.rounding === "total") { const rd = Math.ceil(total); tip += rd - total; total = rd; }
       else if (state.rounding === "person") { const pp = Math.ceil(total / n); const rd = pp * n; tip += rd - total; total = rd; }
 
-      // Highlight active chips
       [...tipChips.children].forEach(c => c.classList.toggle("active", state.customTip === "" && +c.dataset.p === state.tipPct));
       [...roundChips.children].forEach(c => c.classList.toggle("active", c.dataset.id === state.rounding));
 
