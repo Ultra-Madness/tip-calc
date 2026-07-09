@@ -8,109 +8,179 @@
   <meta name="apple-mobile-web-app-title" content="Tip Calc" />
   <meta name="theme-color" content="#2b1e3e" />
   <title>Tip Calculator</title>
-  <!-- Home-screen icon: cosmic purple tile with a money emoji -->
   <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='40' fill='%232b1e3e'/%3E%3Ctext x='90' y='125' font-size='100' text-anchor='middle'%3E%F0%9F%92%B5%3C/text%3E%3C/svg%3E" />
   <style>
+    /* ---------- Dark theme (Midnight Galaxy) is the default ---------- */
     :root {
-      --deep: #2b1e3e;      /* rich dark base */
-      --cosmic: #4a4e8f;    /* mystical mid-tone */
-      --lavender: #a490c2;  /* soft accent */
-      --silver: #e6e6fa;    /* light text */
+      --page-bg: radial-gradient(1200px 600px at 50% -10%, #3a2b52 0%, #201631 55%, #150e21 100%);
+      --card-bg: linear-gradient(180deg, rgba(43,30,62,.96), rgba(30,21,45,.96));
+      --card-border: rgba(164,144,194,.25);
+      --card-shadow: 0 24px 60px rgba(10,6,20,.6), 0 0 0 1px rgba(164,144,194,.06);
+      --header-bg: linear-gradient(135deg, #4a4e8f, #6a5aa0);
+      --header-glow: radial-gradient(300px 120px at 85% -30%, rgba(230,230,250,.28), transparent 70%);
+      --title: #ffffff;
+      --subtitle: #d9d4f2;
+      --label: #a490c2;
+      --input-bg: rgba(20,14,32,.7);
+      --input-border: rgba(164,144,194,.3);
+      --input-text: #e6e6fa;
+      --placeholder: #8479a0;
+      --accent: #a490c2;
+      --accent-ring: rgba(164,144,194,.25);
+      --chip-bg: rgba(20,14,32,.5);
+      --chip-border: rgba(164,144,194,.3);
+      --chip-text: #e6e6fa;
+      --chip-active-bg: linear-gradient(135deg, #4a4e8f, #7a68b4);
+      --chip-active-shadow: 0 4px 14px rgba(74,78,143,.5);
+      --check-text: #c9c1e0;
+      --step-bg: rgba(20,14,32,.6);
+      --count-text: #e6e6fa;
+      --results-bg: rgba(20,14,32,.55);
+      --results-border: rgba(164,144,194,.18);
+      --row-k: #b3a9cf;
+      --row-v: #e6e6fa;
+      --total-text: #ffffff;
+      --divider: rgba(164,144,194,.25);
+      --pp-bg: linear-gradient(135deg, #4a4e8f, #7a68b4);
+      --pp-shadow: 0 6px 18px rgba(74,78,143,.45);
+      --pp-k: #e3def5;
+      --iconbtn-bg: rgba(255,255,255,.15);
+      --iconbtn-text: #ffffff;
     }
+    /* ---------- Light theme ---------- */
+    body.light {
+      --page-bg: radial-gradient(1200px 600px at 50% -10%, #efeaf8 0%, #e4ddf2 55%, #d9d0ec 100%);
+      --card-bg: #ffffff;
+      --card-border: rgba(74,78,143,.15);
+      --card-shadow: 0 20px 45px rgba(74,78,143,.18);
+      --header-bg: linear-gradient(135deg, #6a5aa0, #8b7ac0);
+      --header-glow: radial-gradient(300px 120px at 85% -30%, rgba(255,255,255,.35), transparent 70%);
+      --title: #ffffff;
+      --subtitle: #ece8f7;
+      --label: #6a5aa0;
+      --input-bg: #f6f3fb;
+      --input-border: rgba(74,78,143,.25);
+      --input-text: #2b1e3e;
+      --placeholder: #a99fc0;
+      --accent: #6a5aa0;
+      --accent-ring: rgba(106,90,160,.2);
+      --chip-bg: #f6f3fb;
+      --chip-border: rgba(74,78,143,.22);
+      --chip-text: #3a2f52;
+      --chip-active-bg: linear-gradient(135deg, #6a5aa0, #8b7ac0);
+      --chip-active-shadow: 0 4px 14px rgba(106,90,160,.35);
+      --check-text: #5a5270;
+      --step-bg: #f0ebf8;
+      --count-text: #2b1e3e;
+      --results-bg: #f7f4fc;
+      --results-border: rgba(74,78,143,.12);
+      --row-k: #7a7192;
+      --row-v: #2b1e3e;
+      --total-text: #2b1e3e;
+      --divider: rgba(74,78,143,.18);
+      --pp-bg: linear-gradient(135deg, #6a5aa0, #8b7ac0);
+      --pp-shadow: 0 6px 18px rgba(106,90,160,.3);
+      --pp-k: #ece8f7;
+      --iconbtn-bg: rgba(255,255,255,.22);
+      --iconbtn-text: #ffffff;
+    }
+
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
     html, body { margin: 0; padding: 0; }
     body {
       font-family: "FreeSans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background: radial-gradient(1200px 600px at 50% -10%, #3a2b52 0%, #201631 55%, #150e21 100%);
+      background: var(--page-bg);
       min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      padding: 16px;
-      color: var(--silver);
+      display: flex; justify-content: center; align-items: flex-start;
+      padding: 16px; color: var(--input-text);
+      transition: background .3s ease;
     }
     .card {
-      width: 100%;
-      max-width: 440px;
-      background: linear-gradient(180deg, rgba(43,30,62,.96), rgba(30,21,45,.96));
-      border: 1px solid rgba(164,144,194,.25);
-      border-radius: 22px;
-      box-shadow: 0 24px 60px rgba(10,6,20,.6), 0 0 0 1px rgba(164,144,194,.06);
+      width: 100%; max-width: 440px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 22px; box-shadow: var(--card-shadow);
       overflow: hidden;
     }
     .header {
-      background: linear-gradient(135deg, var(--cosmic), #6a5aa0);
-      padding: 22px 24px;
-      position: relative;
+      background: var(--header-bg);
+      padding: 22px 24px; position: relative;
+      display: flex; justify-content: space-between; align-items: flex-start;
     }
-    .header::after {
-      content: ""; position: absolute; inset: 0;
-      background: radial-gradient(300px 120px at 85% -30%, rgba(230,230,250,.28), transparent 70%);
-      pointer-events: none;
+    .header::after { content: ""; position: absolute; inset: 0; background: var(--header-glow); pointer-events: none; }
+    .header h1 { color: var(--title); font-size: 23px; margin: 0; letter-spacing: .3px; font-weight: 800; }
+    .header p { color: var(--subtitle); font-size: 13px; margin: 5px 0 0; }
+    .hbtns { display: flex; gap: 8px; position: relative; z-index: 1; }
+    .iconbtn {
+      width: 38px; height: 38px; border-radius: 10px; border: none; cursor: pointer;
+      background: var(--iconbtn-bg); color: var(--iconbtn-text);
+      font-size: 18px; display: flex; align-items: center; justify-content: center;
+      transition: transform .15s ease, background .15s ease;
     }
-    .header h1 { color: #fff; font-size: 23px; margin: 0; letter-spacing: .3px; font-weight: 800; }
-    .header p { color: #d9d4f2; font-size: 13px; margin: 5px 0 0; }
+    .iconbtn:hover { background: rgba(255,255,255,.28); }
+    .iconbtn:active { transform: scale(.9); }
+    #refresh.spin { animation: spin .5s ease; }
+    @keyframes spin { from { transform: rotate(0); } to { transform: rotate(360deg); } }
     .body { padding: 22px 24px; }
     .field { margin-bottom: 18px; }
-    label.lbl { display: block; font-size: 13px; font-weight: 600; color: var(--lavender); margin-bottom: 7px; letter-spacing: .3px; text-transform: uppercase; }
+    label.lbl { display: block; font-size: 13px; font-weight: 600; color: var(--label); margin-bottom: 7px; letter-spacing: .3px; text-transform: uppercase; }
     .inwrap { position: relative; }
     input[type=number] {
-      width: 100%; padding: 12px 12px; font-size: 17px;
-      background: rgba(20,14,32,.7);
-      border: 1px solid rgba(164,144,194,.3); border-radius: 12px; outline: none;
-      color: var(--silver);
+      width: 100%; padding: 12px; font-size: 17px;
+      background: var(--input-bg); border: 1px solid var(--input-border); border-radius: 12px;
+      outline: none; color: var(--input-text);
     }
-    input[type=number]::placeholder { color: #8479a0; }
-    input[type=number]:focus { border-color: var(--lavender); box-shadow: 0 0 0 3px rgba(164,144,194,.25); }
+    input[type=number]::placeholder { color: var(--placeholder); }
+    input[type=number]:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-ring); }
     .prefix { padding-left: 26px !important; }
     .suffix { padding-right: 30px !important; }
-    .sym { position: absolute; top: 50%; transform: translateY(-50%); color: var(--lavender); }
+    .sym { position: absolute; top: 50%; transform: translateY(-50%); color: var(--accent); }
     .sym.l { left: 12px; } .sym.r { right: 12px; }
     .grid { display: grid; gap: 8px; }
     .g4 { grid-template-columns: repeat(4, 1fr); }
     .g3 { grid-template-columns: repeat(3, 1fr); }
     .chip {
       padding: 11px 0; border-radius: 11px; font-size: 14px; font-weight: 700;
-      border: 1px solid rgba(164,144,194,.3); background: rgba(20,14,32,.5); color: var(--silver); cursor: pointer;
-      transition: all .15s ease;
+      border: 1px solid var(--chip-border); background: var(--chip-bg); color: var(--chip-text);
+      cursor: pointer; transition: all .15s ease;
     }
     .chip.sm { font-size: 12px; }
-    .chip:hover { border-color: var(--lavender); }
-    .chip.active {
-      background: linear-gradient(135deg, var(--cosmic), #7a68b4);
-      color: #fff; border-color: transparent;
-      box-shadow: 0 4px 14px rgba(74,78,143,.5);
-    }
-    .checkrow { display: flex; align-items: center; gap: 8px; margin-top: 10px; font-size: 14px; color: #c9c1e0; }
-    .checkrow input { width: 18px; height: 18px; accent-color: var(--lavender); }
+    .chip:hover { border-color: var(--accent); }
+    .chip.active { background: var(--chip-active-bg); color: #fff; border-color: transparent; box-shadow: var(--chip-active-shadow); }
+    .checkrow { display: flex; align-items: center; gap: 8px; margin-top: 10px; font-size: 14px; color: var(--check-text); }
+    .checkrow input { width: 18px; height: 18px; accent-color: var(--accent); }
     .stepper { display: flex; align-items: center; gap: 12px; }
     .step {
-      width: 46px; height: 46px; border-radius: 12px; border: 1px solid rgba(164,144,194,.3);
-      background: rgba(20,14,32,.6); color: var(--silver); font-size: 22px; font-weight: 700; cursor: pointer;
+      width: 46px; height: 46px; border-radius: 12px; border: 1px solid var(--chip-border);
+      background: var(--step-bg); color: var(--count-text); font-size: 22px; font-weight: 700; cursor: pointer;
     }
-    .step:hover { border-color: var(--lavender); }
-    .count { flex: 1; text-align: center; font-size: 17px; font-weight: 600; color: var(--silver); }
-    .results { background: rgba(20,14,32,.55); border: 1px solid rgba(164,144,194,.18); border-radius: 16px; padding: 16px; margin-top: 4px; }
+    .step:hover { border-color: var(--accent); }
+    .count { flex: 1; text-align: center; font-size: 17px; font-weight: 600; color: var(--count-text); }
+    .results { background: var(--results-bg); border: 1px solid var(--results-border); border-radius: 16px; padding: 16px; margin-top: 4px; }
     .row { display: flex; justify-content: space-between; align-items: center; padding: 4px 0; }
-    .row .k { color: #b3a9cf; font-size: 14px; } .row .v { color: var(--silver); font-size: 14px; font-weight: 500; }
-    .row.total .k { color: #fff; font-size: 16px; font-weight: 700; }
-    .row.total .v { color: #fff; font-size: 19px; font-weight: 800; }
-    .divider { height: 1px; background: rgba(164,144,194,.25); margin: 9px 0; }
+    .row .k { color: var(--row-k); font-size: 14px; } .row .v { color: var(--row-v); font-size: 14px; font-weight: 500; }
+    .row.total .k { color: var(--total-text); font-size: 16px; font-weight: 700; }
+    .row.total .v { color: var(--total-text); font-size: 19px; font-weight: 800; }
+    .divider { height: 1px; background: var(--divider); margin: 9px 0; }
     .perperson {
-      margin-top: 12px; border-radius: 12px;
-      background: linear-gradient(135deg, var(--cosmic), #7a68b4);
-      box-shadow: 0 6px 18px rgba(74,78,143,.45);
+      margin-top: 12px; border-radius: 12px; background: var(--pp-bg); box-shadow: var(--pp-shadow);
       padding: 13px 16px; display: flex; justify-content: space-between; align-items: center;
     }
-    .perperson .k { color: #e3def5; font-size: 14px; }
+    .perperson .k { color: var(--pp-k); font-size: 14px; }
     .perperson .v { color: #fff; font-size: 26px; font-weight: 800; }
   </style>
 </head>
 <body>
   <div class="card">
     <div class="header">
-      <h1>Tip Calculator</h1>
-      <p>Split the bill without the mental math.</p>
+      <div>
+        <h1>Tip Calculator</h1>
+        <p>Split the bill without the mental math.</p>
+      </div>
+      <div class="hbtns">
+        <button class="iconbtn" id="themeToggle" title="Toggle light / dark" aria-label="Toggle theme">🌙</button>
+        <button class="iconbtn" id="refresh" title="Reset" aria-label="Reset">↻</button>
+      </div>
     </div>
     <div class="body">
       <div class="field">
@@ -168,18 +238,21 @@
 
   <script>
     const TIP_PRESETS = [15, 18, 20, 25];
-    const state = { bill: "", tax: "", tipPct: 20, customTip: "", postTax: false, people: 1, rounding: "none" };
+    const DEFAULTS = { bill: "", tax: "", tipPct: 20, customTip: "", postTax: false, people: 1, rounding: "none" };
+    let state = { ...DEFAULTS };
 
-    const tipChips = document.getElementById("tipChips");
+    const $ = id => document.getElementById(id);
+
+    const tipChips = $("tipChips");
     TIP_PRESETS.forEach(p => {
       const b = document.createElement("button");
       b.className = "chip"; b.textContent = p + "%"; b.dataset.p = p;
-      b.onclick = () => { state.tipPct = p; state.customTip = ""; document.getElementById("customTip").value = ""; render(); };
+      b.onclick = () => { state.tipPct = p; state.customTip = ""; $("customTip").value = ""; render(); };
       tipChips.appendChild(b);
     });
 
     const roundOpts = [ ["none","None"], ["total","Up: total"], ["person","Up: person"] ];
-    const roundChips = document.getElementById("roundChips");
+    const roundChips = $("roundChips");
     roundOpts.forEach(([id,label]) => {
       const b = document.createElement("button");
       b.className = "chip sm"; b.textContent = label; b.dataset.id = id;
@@ -187,12 +260,32 @@
       roundChips.appendChild(b);
     });
 
-    document.getElementById("bill").oninput = e => { state.bill = e.target.value; render(); };
-    document.getElementById("tax").oninput = e => { state.tax = e.target.value; render(); };
-    document.getElementById("customTip").oninput = e => { state.customTip = e.target.value; render(); };
-    document.getElementById("posttax").onchange = e => { state.postTax = e.target.checked; render(); };
-    document.getElementById("minus").onclick = () => { state.people = Math.max(1, state.people - 1); render(); };
-    document.getElementById("plus").onclick = () => { state.people = Math.min(50, state.people + 1); render(); };
+    $("bill").oninput = e => { state.bill = e.target.value; render(); };
+    $("tax").oninput = e => { state.tax = e.target.value; render(); };
+    $("customTip").oninput = e => { state.customTip = e.target.value; render(); };
+    $("posttax").onchange = e => { state.postTax = e.target.checked; render(); };
+    $("minus").onclick = () => { state.people = Math.max(1, state.people - 1); render(); };
+    $("plus").onclick = () => { state.people = Math.min(50, state.people + 1); render(); };
+
+    // ----- Theme toggle (remembers choice) -----
+    function applyTheme(mode) {
+      const light = mode === "light";
+      document.body.classList.toggle("light", light);
+      $("themeToggle").textContent = light ? "☀️" : "🌙";
+      document.querySelector('meta[name=theme-color]').setAttribute("content", light ? "#6a5aa0" : "#2b1e3e");
+      try { localStorage.setItem("tipcalc-theme", mode); } catch (e) {}
+    }
+    $("themeToggle").onclick = () => {
+      applyTheme(document.body.classList.contains("light") ? "dark" : "light");
+    };
+
+    // ----- Refresh / reset -----
+    $("refresh").onclick = () => {
+      state = { ...DEFAULTS };
+      $("bill").value = ""; $("tax").value = ""; $("customTip").value = ""; $("posttax").checked = false;
+      const btn = $("refresh"); btn.classList.remove("spin"); void btn.offsetWidth; btn.classList.add("spin");
+      render();
+    };
 
     const money = v => "$" + (isFinite(v) ? v : 0).toFixed(2);
 
@@ -212,18 +305,21 @@
       [...tipChips.children].forEach(c => c.classList.toggle("active", state.customTip === "" && +c.dataset.p === state.tipPct));
       [...roundChips.children].forEach(c => c.classList.toggle("active", c.dataset.id === state.rounding));
 
-      document.getElementById("count").textContent = n + (n === 1 ? " person" : " people");
-      document.getElementById("rSub").textContent = money(subtotal);
-      document.getElementById("rTaxRow").style.display = tax > 0 ? "flex" : "none";
-      document.getElementById("rTax").textContent = money(tax);
-      document.getElementById("rTipLbl").textContent = "Tip (" + activeTip + "%)";
-      document.getElementById("rTip").textContent = money(tip);
-      document.getElementById("rTotal").textContent = money(total);
-      const ppBox = document.getElementById("ppBox");
-      ppBox.style.display = n > 1 ? "flex" : "none";
-      document.getElementById("rPP").textContent = money(total / n);
+      $("count").textContent = n + (n === 1 ? " person" : " people");
+      $("rSub").textContent = money(subtotal);
+      $("rTaxRow").style.display = tax > 0 ? "flex" : "none";
+      $("rTax").textContent = money(tax);
+      $("rTipLbl").textContent = "Tip (" + activeTip + "%)";
+      $("rTip").textContent = money(tip);
+      $("rTotal").textContent = money(total);
+      $("ppBox").style.display = n > 1 ? "flex" : "none";
+      $("rPP").textContent = money(total / n);
     }
 
+    // init: restore saved theme (default dark)
+    let saved = "dark";
+    try { saved = localStorage.getItem("tipcalc-theme") || "dark"; } catch (e) {}
+    applyTheme(saved);
     render();
   </script>
 </body>
