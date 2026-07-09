@@ -6,84 +6,84 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="Tip Calc" />
-  <meta name="theme-color" content="#2b1e3e" />
+  <meta name="theme-color" content="#000000" />
   <title>Tip Calculator</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,300;8..60,400;8..60,500;8..60,600;8..60,700&display=swap" />
-  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='40' fill='%232b1e3e'/%3E%3Ctext x='90' y='125' font-size='100' text-anchor='middle'%3E%F0%9F%92%B5%3C/text%3E%3C/svg%3E" />
+  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='40' fill='%23000000'/%3E%3Ctext x='90' y='125' font-size='100' text-anchor='middle'%3E%F0%9F%92%B5%3C/text%3E%3C/svg%3E" />
   <style>
-    /* ---------- Dark theme (Midnight Galaxy) is the default ---------- */
+    /* ---------- Dark theme (deep teal on black) is the default ---------- */
     :root {
-      --page-bg: radial-gradient(1200px 600px at 50% -10%, #3a2b52 0%, #201631 55%, #150e21 100%);
-      --card-bg: linear-gradient(180deg, rgba(43,30,62,.96), rgba(30,21,45,.96));
-      --card-border: rgba(164,144,194,.25);
-      --card-shadow: 0 24px 60px rgba(10,6,20,.6), 0 0 0 1px rgba(164,144,194,.06);
-      --header-bg: linear-gradient(135deg, #4a4e8f, #6a5aa0);
-      --header-glow: radial-gradient(300px 120px at 85% -30%, rgba(230,230,250,.28), transparent 70%);
+      --page-bg: #000000;
+      --card-bg: linear-gradient(180deg, #0a0a0a, #000000);
+      --card-border: rgba(94,234,212,.22);
+      --card-shadow: 0 24px 60px rgba(0,0,0,.65), 0 0 0 1px rgba(94,234,212,.05);
+      --header-bg: linear-gradient(135deg, #0c4a45, #13897c);
+      --header-glow: radial-gradient(300px 120px at 85% -30%, rgba(190,255,245,.24), transparent 70%);
       --title: #ffffff;
-      --subtitle: #d9d4f2;
-      --label: #a490c2;
-      --input-bg: rgba(20,14,32,.7);
-      --input-border: rgba(164,144,194,.3);
-      --input-text: #e6e6fa;
-      --placeholder: #8479a0;
-      --accent: #a490c2;
-      --accent-ring: rgba(164,144,194,.25);
-      --chip-bg: rgba(20,14,32,.5);
-      --chip-border: rgba(164,144,194,.3);
-      --chip-text: #e6e6fa;
-      --chip-active-bg: linear-gradient(135deg, #4a4e8f, #7a68b4);
-      --chip-active-shadow: 0 4px 14px rgba(74,78,143,.5);
-      --check-text: #c9c1e0;
-      --step-bg: rgba(20,14,32,.6);
-      --count-text: #e6e6fa;
-      --results-bg: rgba(20,14,32,.55);
-      --results-border: rgba(164,144,194,.18);
-      --row-k: #b3a9cf;
-      --row-v: #e6e6fa;
+      --subtitle: #bfe8e1;
+      --label: #5fd0c2;
+      --input-bg: rgba(255,255,255,.05);
+      --input-border: rgba(94,234,212,.28);
+      --input-text: #e8f3f1;
+      --placeholder: #6f8a86;
+      --accent: #5fd0c2;
+      --accent-ring: rgba(94,234,212,.25);
+      --chip-bg: rgba(255,255,255,.045);
+      --chip-border: rgba(94,234,212,.28);
+      --chip-text: #e8f3f1;
+      --chip-active-bg: linear-gradient(135deg, #0f766e, #14b8a6);
+      --chip-active-shadow: 0 4px 14px rgba(20,184,166,.45);
+      --check-text: #bcd9d4;
+      --step-bg: rgba(255,255,255,.05);
+      --count-text: #e8f3f1;
+      --results-bg: rgba(255,255,255,.04);
+      --results-border: rgba(94,234,212,.16);
+      --row-k: #9fc3bd;
+      --row-v: #e8f3f1;
       --total-text: #ffffff;
-      --divider: rgba(164,144,194,.25);
-      --pp-bg: linear-gradient(135deg, #4a4e8f, #7a68b4);
-      --pp-shadow: 0 6px 18px rgba(74,78,143,.45);
-      --pp-k: #e3def5;
+      --divider: rgba(94,234,212,.2);
+      --pp-bg: linear-gradient(135deg, #0f766e, #14b8a6);
+      --pp-shadow: 0 6px 18px rgba(20,184,166,.4);
+      --pp-k: #bfe8e1;
       --iconbtn-bg: rgba(255,255,255,.15);
       --iconbtn-text: #ffffff;
     }
     /* ---------- Light theme ---------- */
     body.light {
-      --page-bg: radial-gradient(1200px 600px at 50% -10%, #efeaf8 0%, #e4ddf2 55%, #d9d0ec 100%);
+      --page-bg: radial-gradient(1200px 600px at 50% -10%, #e8f6f4 0%, #d7efeb 55%, #c7e7e2 100%);
       --card-bg: #ffffff;
-      --card-border: rgba(74,78,143,.15);
-      --card-shadow: 0 20px 45px rgba(74,78,143,.18);
-      --header-bg: linear-gradient(135deg, #6a5aa0, #8b7ac0);
+      --card-border: rgba(15,118,110,.15);
+      --card-shadow: 0 20px 45px rgba(15,118,110,.18);
+      --header-bg: linear-gradient(135deg, #0f766e, #17a394);
       --header-glow: radial-gradient(300px 120px at 85% -30%, rgba(255,255,255,.35), transparent 70%);
       --title: #ffffff;
-      --subtitle: #ece8f7;
-      --label: #6a5aa0;
-      --input-bg: #f6f3fb;
-      --input-border: rgba(74,78,143,.25);
-      --input-text: #2b1e3e;
-      --placeholder: #a99fc0;
-      --accent: #6a5aa0;
-      --accent-ring: rgba(106,90,160,.2);
-      --chip-bg: #f6f3fb;
-      --chip-border: rgba(74,78,143,.22);
-      --chip-text: #3a2f52;
-      --chip-active-bg: linear-gradient(135deg, #6a5aa0, #8b7ac0);
-      --chip-active-shadow: 0 4px 14px rgba(106,90,160,.35);
-      --check-text: #5a5270;
-      --step-bg: #f0ebf8;
-      --count-text: #2b1e3e;
-      --results-bg: #f7f4fc;
-      --results-border: rgba(74,78,143,.12);
-      --row-k: #7a7192;
-      --row-v: #2b1e3e;
-      --total-text: #2b1e3e;
-      --divider: rgba(74,78,143,.18);
-      --pp-bg: linear-gradient(135deg, #6a5aa0, #8b7ac0);
-      --pp-shadow: 0 6px 18px rgba(106,90,160,.3);
-      --pp-k: #ece8f7;
+      --subtitle: #dcf3ef;
+      --label: #0f766e;
+      --input-bg: #f1faf8;
+      --input-border: rgba(15,118,110,.25);
+      --input-text: #123330;
+      --placeholder: #8fb3ad;
+      --accent: #0f766e;
+      --accent-ring: rgba(15,118,110,.2);
+      --chip-bg: #f1faf8;
+      --chip-border: rgba(15,118,110,.22);
+      --chip-text: #1d3f3b;
+      --chip-active-bg: linear-gradient(135deg, #0f766e, #17a394);
+      --chip-active-shadow: 0 4px 14px rgba(15,118,110,.35);
+      --check-text: #4a6b66;
+      --step-bg: #eaf6f4;
+      --count-text: #123330;
+      --results-bg: #f2faf9;
+      --results-border: rgba(15,118,110,.12);
+      --row-k: #6d918b;
+      --row-v: #123330;
+      --total-text: #123330;
+      --divider: rgba(15,118,110,.18);
+      --pp-bg: linear-gradient(135deg, #0f766e, #17a394);
+      --pp-shadow: 0 6px 18px rgba(15,118,110,.3);
+      --pp-k: #dcf3ef;
       --iconbtn-bg: rgba(255,255,255,.22);
       --iconbtn-text: #ffffff;
     }
@@ -93,7 +93,7 @@
     body {
       font-family: "Source Serif 4", Georgia, "Times New Roman", serif;
       font-weight: 400;
-      background: #0d0a14;
+      background: #000000;
       min-height: 100vh;
       display: flex; justify-content: center; align-items: flex-start;
       padding: 16px; color: var(--input-text);
@@ -292,7 +292,7 @@
       const light = mode === "light";
       document.body.classList.toggle("light", light);
       $("themeToggle").textContent = light ? "☀️" : "🌙";
-      document.querySelector('meta[name=theme-color]').setAttribute("content", light ? "#6a5aa0" : "#2b1e3e");
+      document.querySelector('meta[name=theme-color]').setAttribute("content", light ? "#0f766e" : "#000000");
       try { localStorage.setItem("tipcalc-theme", mode); } catch (e) {}
     }
     $("themeToggle").onclick = () => {
