@@ -12,6 +12,7 @@
   <style>
     /* ---------- Dark theme (Midnight Galaxy) is the default ---------- */
     :root {
+      --tint: 0.5;          /* black overlay strength over the photo (0 = none, 1 = full black) */
       --page-bg: radial-gradient(1200px 600px at 50% -10%, #3a2b52 0%, #201631 55%, #150e21 100%);
       --card-bg: linear-gradient(180deg, rgba(43,30,62,.96), rgba(30,21,45,.96));
       --card-border: rgba(164,144,194,.25);
@@ -89,11 +90,18 @@
     html, body { margin: 0; padding: 0; }
     body {
       font-family: "FreeSans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background: var(--page-bg);
+      background: #0d0a14;
       min-height: 100vh;
       display: flex; justify-content: center; align-items: flex-start;
       padding: 16px; color: var(--input-text);
-      transition: background .3s ease;
+    }
+    /* Full-screen restaurant photo behind everything, with an adjustable black tint */
+    body::before {
+      content: "";
+      position: fixed; inset: 0; z-index: -1;
+      background:
+        linear-gradient(rgba(0,0,0,var(--tint)), rgba(0,0,0,var(--tint))),
+        url("bg.jpg") center center / cover no-repeat;
     }
     .card {
       width: 100%; max-width: 440px;
