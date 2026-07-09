@@ -8,6 +8,9 @@
   <meta name="apple-mobile-web-app-title" content="Tip Calc" />
   <meta name="theme-color" content="#2b1e3e" />
   <title>Tip Calculator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,300;8..60,400;8..60,500;8..60,600;8..60,700&display=swap" />
   <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='40' fill='%232b1e3e'/%3E%3Ctext x='90' y='125' font-size='100' text-anchor='middle'%3E%F0%9F%92%B5%3C/text%3E%3C/svg%3E" />
   <style>
     /* ---------- Dark theme (Midnight Galaxy) is the default ---------- */
@@ -88,7 +91,8 @@
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
     html, body { margin: 0; padding: 0; }
     body {
-      font-family: "FreeSans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-family: "Source Serif 4", Georgia, "Times New Roman", serif;
+      font-weight: 400;
       background: #0d0a14;
       min-height: 100vh;
       display: flex; justify-content: center; align-items: flex-start;
@@ -124,7 +128,7 @@
       display: flex; justify-content: space-between; align-items: flex-start;
     }
     .header::after { content: ""; position: absolute; inset: 0; background: var(--header-glow); pointer-events: none; }
-    .header h1 { color: var(--title); font-size: 23px; margin: 0; letter-spacing: .3px; font-weight: 800; }
+    .header h1 { color: var(--title); font-size: 23px; margin: 0; letter-spacing: .3px; font-weight: 600; }
     .header p { color: var(--subtitle); font-size: 13px; margin: 5px 0 0; }
     .hbtns { display: flex; gap: 8px; position: relative; z-index: 1; }
     .iconbtn {
@@ -156,7 +160,7 @@
     .g4 { grid-template-columns: repeat(4, 1fr); }
     .g3 { grid-template-columns: repeat(3, 1fr); }
     .chip {
-      padding: 11px 0; border-radius: 11px; font-size: 14px; font-weight: 700;
+      padding: 11px 0; border-radius: 11px; font-size: 14px; font-weight: 600;
       border: 1px solid var(--chip-border); background: var(--chip-bg); color: var(--chip-text);
       cursor: pointer; transition: all .15s ease;
     }
@@ -176,14 +180,14 @@
     .row { display: flex; justify-content: space-between; align-items: center; padding: 4px 0; }
     .row .k { color: var(--row-k); font-size: 14px; } .row .v { color: var(--row-v); font-size: 14px; font-weight: 500; }
     .row.total .k { color: var(--total-text); font-size: 16px; font-weight: 700; }
-    .row.total .v { color: var(--total-text); font-size: 19px; font-weight: 800; }
+    .row.total .v { color: var(--total-text); font-size: 19px; font-weight: 700; }
     .divider { height: 1px; background: var(--divider); margin: 9px 0; }
     .perperson {
       margin-top: 12px; border-radius: 12px; background: var(--pp-bg); box-shadow: var(--pp-shadow);
       padding: 13px 16px; display: flex; justify-content: space-between; align-items: center;
     }
     .perperson .k { color: var(--pp-k); font-size: 14px; }
-    .perperson .v { color: #fff; font-size: 26px; font-weight: 800; }
+    .perperson .v { color: #fff; font-size: 26px; font-weight: 700; }
   </style>
 </head>
 <body>
