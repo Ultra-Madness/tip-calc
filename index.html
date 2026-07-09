@@ -12,7 +12,6 @@
   <style>
     /* ---------- Dark theme (Midnight Galaxy) is the default ---------- */
     :root {
-      --tint: 0.5;          /* black overlay strength over the photo (0 = none, 1 = full black) */
       --page-bg: radial-gradient(1200px 600px at 50% -10%, #3a2b52 0%, #201631 55%, #150e21 100%);
       --card-bg: linear-gradient(180deg, rgba(43,30,62,.96), rgba(30,21,45,.96));
       --card-border: rgba(164,144,194,.25);
@@ -50,7 +49,6 @@
     }
     /* ---------- Light theme ---------- */
     body.light {
-      --tint: 0;            /* no black overlay in light mode (dark mode uses 0.5) */
       --page-bg: radial-gradient(1200px 600px at 50% -10%, #efeaf8 0%, #e4ddf2 55%, #d9d0ec 100%);
       --card-bg: #ffffff;
       --card-border: rgba(74,78,143,.15);
@@ -96,14 +94,23 @@
       display: flex; justify-content: center; align-items: flex-start;
       padding: 16px; color: var(--input-text);
     }
-    /* Full-screen restaurant photo behind everything, with an adjustable black tint */
+    /* Full-screen restaurant photo behind everything */
     body::before {
       content: "";
-      position: fixed; inset: 0; z-index: -1;
-      background:
-        linear-gradient(rgba(0,0,0,var(--tint)), rgba(0,0,0,var(--tint))),
-        url("bg.jpg") center center / cover no-repeat;
+      position: fixed; inset: 0; z-index: -2;
+      background: url("bg.jpg") center center / cover no-repeat;
     }
+    /* Black tint layer on top of the photo. Opacity is toggled by the theme —
+       iOS Safari repaints opacity reliably (it does NOT reliably repaint a
+       CSS-variable tint buried inside a gradient). */
+    body::after {
+      content: "";
+      position: fixed; inset: 0; z-index: -1;
+      background: #000;
+      opacity: 0.5;                 /* dark mode: 50% black tint */
+      transition: opacity .3s ease;
+    }
+    body.light::after { opacity: 0; } /* light mode: no tint */
     .card {
       width: 100%; max-width: 440px;
       background: var(--card-bg);
